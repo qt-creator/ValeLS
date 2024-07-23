@@ -9,6 +9,11 @@ jobs:
         with:
           apt: qttools5-dev-tools
 
+
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
       - name: Build translations
-        #working-directory: ts
-        run: ls -lach
+        working-directory: ValeLS/ts
+        run: lrelease *.ts
