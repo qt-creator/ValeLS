@@ -10,5 +10,5 @@ jobs:
           apt: qttools5-dev-tools
 
       - name: Build translations
-        working-directory: ValeLS/ts
-        run: lrelease *.ts
+        #working-directory: ts
+        run: ls -lach
