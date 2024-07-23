@@ -1,14 +1,13 @@
-name: build-translations
-run-name: ${{ github.actor }} is building translations
+name: Build plugin
+run-name: ${{ github.actor }} is building the plugin
 on: [push]
 jobs:
-  build-translations:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: ConorMacBride/install-package@v1
         with:
           apt: qttools5-dev-tools
-
 
       - uses: actions/checkout@v1
         with:
@@ -18,8 +17,8 @@ jobs:
         working-directory: ValeLS/ts
         run: lrelease *.ts
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Upload Plugin artifact
+        uses: actions/upload-artifact@v4
         with:
           name: ValeLS
-          path: ./ValeLS
+          path: ./ValeLS/
