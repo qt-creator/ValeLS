@@ -1,0 +1,26 @@
+name: build-translations
+run-name: ${{ github.actor }} is building translations
+on: [push]
+jobs:
+  build-translations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ConorMacBride/install-package@v1
+        with:
+          apt: qttools5-dev-tools
+      
+      - uses: leafo/gh-actions-lua@v9
+        with:
+          luaVersion: "5.4.6"
+      - uses: leafo/gh-actions-luarocks@v4
+
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: install lfs module
+        run: luarocks install luafilesystem
+
+      - name: Build translations
+        working-directory: ValeLS
+        run: lua lupdate.lua
