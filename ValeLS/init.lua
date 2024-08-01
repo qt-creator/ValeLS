@@ -214,6 +214,7 @@ local function setupClient()
     name = 'Vale Language Server',
     cmd = createCommand,
     transport = 'stdio',
+    showInSettings = false,
     languageFilter = {
       patterns = { '*' },
     },

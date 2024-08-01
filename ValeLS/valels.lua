@@ -11,7 +11,7 @@ return {
     Experimental = true,
     DisabledByDefault = false,
     Dependencies = {
-        { Name = "Lua",  Version = "14.0.82" },
+        { Name = "Lua",  Version = "14.0.0" },
     },
     languages = {"en", "de"},
     setup = function()
