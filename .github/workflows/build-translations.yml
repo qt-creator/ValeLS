@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: Maddimax/install-qtc@v1
+      - uses: qt-creator/install-dev-package@v1.2
         with:
           version: '14.0.0'
 
