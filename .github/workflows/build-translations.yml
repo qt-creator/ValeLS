@@ -30,7 +30,7 @@ jobs:
             ValeLS/ts/*.qm
 
       - name: Release on Extension Store
-        uses: Maddimax/deploy-lua-plugin@v1
+        uses: Maddimax/deploy-lua-plugin@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           api: ${{ secrets.EXTENSION_STORE_API_URL }}
