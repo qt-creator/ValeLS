@@ -5,24 +5,36 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: qt-creator/install-dev-package@v1.2
+      - uses: actions/checkout@v1
         with:
-          version: '14.0.0'
+          fetch-depth: 1
 
       - uses: ConorMacBride/install-package@v1
         with:
           apt: qttools5-dev-tools
 
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-
       - name: Build translations
         working-directory: ValeLS/ts
         run: lrelease *.ts
 
-      - name: Upload Plugin artifact
-        uses: actions/upload-artifact@v4
+  deploy:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      # Make a release
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
         with:
-          name: ValeLS
-          path: ./ValeLS*
+          files: |
+            ValeLS/init.lua
+            ValeLS/ValeLS.lua
+            ValeLS/ts/*.qm
+
+      - name: Release on Extension Store
+        uses: Maddimax/deploy-lua-plugin@v1
+        with:
+          api: ${{ secrets.EXTENSION_STORE_API_URL }}
+          token: ${{ secrets.EXTENSION_STORE_API_TOKEN }}
+          spec: ValeLS/ValeLS.lua
+          download-url: ${{ fromJSON(steps.create_release.outputs.assets)[0].browser_download_url }} 
