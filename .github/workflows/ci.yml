@@ -2,7 +2,7 @@ name: Build plugin
 run-name: ${{ github.actor }} is building the plugin
 on: [push]
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -16,33 +16,37 @@ jobs:
       - name: Build translations
         working-directory: ValeLS/ts
         run: lrelease *.ts
-      
-      - name: Create artifact
-        uses: actions/upload-artifact@v4
+
+      - name: Create Artifact
+        uses: actions/upload-artifact@v1
         with:
           name: ValeLS
           path: |
-            ./ValeLS*
-            !./ValeLS/**/*.ts
-
-      - name: Download artifact
-        id: download_artifact
-        uses: actions/download-artifact@v4
+            ValeLS*
+            !ValeLS/**/*.ts
+      
+  Release:
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v1
         with:
           name: ValeLS
+      
+      - name: "Check"
+        run: find .
 
       # Make a release
       - name: Create Release
         uses: softprops/action-gh-release@v2
-        if: startsWith(github.ref, 'refs/tags/')
         id: create_release
         with:
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: ${{ steps.download_artifact.outputs.download-path }}/ValeLS.zip
+          files: ValeLS.zip
 
       - name: Release on Extension Store
         uses: Maddimax/deploy-lua-plugin@v2.6
-        if: startsWith(github.ref, 'refs/tags/')
         with:
           api: ${{ secrets.EXTENSION_STORE_API_URL }}
           token: ${{ secrets.EXTENSION_STORE_API_TOKEN }}
