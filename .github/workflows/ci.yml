@@ -35,8 +35,11 @@ jobs:
         with:
           name: ValeLS
       
-      - name: "Check"
-        run: find .
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.5
+        with:
+          type: 'zip'
+          filename: 'ValeLS.zip'
 
       # Make a release
       - name: Create Release
