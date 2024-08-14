@@ -22,7 +22,7 @@ jobs:
         with:
           name: ValeLS
           path: |
-            ./ValeLS
+            ./ValeLS*
             !./ValeLS/**/*.ts
       
   Release:
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: ValeLS
       
