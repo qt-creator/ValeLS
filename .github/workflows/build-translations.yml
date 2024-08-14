@@ -15,7 +15,7 @@ jobs:
 
       - name: Build translations
         working-directory: ValeLS/ts
-        run: lrelease *.ts
+        run: lrelease *.ts && ls
       
       - name: Zip files
         uses: vimtor/action-zip@v1.2
@@ -25,7 +25,6 @@ jobs:
             ValeLS/valels.lua
             ValeLS/icon.png
             ValeLS/ts/valels_en.qm
-            ValeLS/ts/valels_de.qm
           dest: ValeLS.zip
 
       # Make a release
