@@ -22,8 +22,8 @@ jobs:
         with:
           name: ValeLS
           path: |
-            ValeLS*
-            !ValeLS/**/*.ts
+            ./ValeLS*
+            !./ValeLS/**/*.ts
       
   Release:
     needs: Build
