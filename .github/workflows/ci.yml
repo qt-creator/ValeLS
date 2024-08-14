@@ -18,11 +18,11 @@ jobs:
         run: lrelease *.ts
 
       - name: Create Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: ValeLS
           path: |
-            ./ValeLS*
+            ./ValeLS
             !./ValeLS/**/*.ts
       
   Release:
