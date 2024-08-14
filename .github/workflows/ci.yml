@@ -15,17 +15,21 @@ jobs:
 
       - name: Build translations
         working-directory: ValeLS/ts
-        run: lrelease *.ts && ls
+        run: lrelease *.ts
       
-      - name: Zip files
-        uses: vimtor/action-zip@v1.2
+      - name: Create artifact
+        uses: actions/upload-artifact@v4
         with:
-          files: |
-            ValeLS/init.lua
-            ValeLS/valels.lua
-            ValeLS/icon.png
-            ValeLS/ts/valels_en.qm
-          dest: ValeLS.zip
+          name: ValeLS.zip
+          path: |
+            ValeLS
+            !ValeLS/**/*.ts
+
+      - name: Download artifact
+        id: download_artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ValeLS.zip
 
       # Make a release
       - name: Create Release
@@ -34,7 +38,7 @@ jobs:
         id: create_release
         with:
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: ValeLS.zip
+          files: ${{ steps.download_artifact.outputs.download-path}}
 
       - name: Release on Extension Store
         uses: Maddimax/deploy-lua-plugin@v2.6
