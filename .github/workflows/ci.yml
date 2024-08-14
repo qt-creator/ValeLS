@@ -20,16 +20,16 @@ jobs:
       - name: Create artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ValeLS.zip
+          name: ValeLS
           path: |
-            ValeLS
-            !ValeLS/**/*.ts
+            ./ValeLS*
+            !./ValeLS/**/*.ts
 
       - name: Download artifact
         id: download_artifact
         uses: actions/download-artifact@v4
         with:
-          name: ValeLS.zip
+          name: ValeLS
 
       # Make a release
       - name: Create Release
@@ -38,7 +38,7 @@ jobs:
         id: create_release
         with:
           token: ${{ secrets.RELEASE_TOKEN }}
-          files: ${{ steps.download_artifact.outputs.download-path}}
+          files: ${{ steps.download_artifact.outputs.download-path }}/ValeLS.zip
 
       - name: Release on Extension Store
         uses: Maddimax/deploy-lua-plugin@v2.6
