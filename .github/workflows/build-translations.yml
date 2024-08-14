@@ -24,7 +24,8 @@ jobs:
             ValeLS/init.lua
             ValeLS/valels.lua
             ValeLS/icon.png
-            ValeLS/ts/*.qm
+            ValeLS/ts/valels_en.qm
+            ValeLS/ts/valels_de.qm
           dest: ValeLS.zip
 
       # Make a release
