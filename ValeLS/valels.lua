@@ -13,7 +13,8 @@ return {
     Dependencies = {
         { Name = "Lua",  Version = "14.0.82" },
     },
-    languages = {"en", "de"},
+    Tags = {"language server", "Vale", "ValeLS", "Qt"},
+    Languages = {"en", "de"},
     setup = function()
         require 'init'.setup()
     end
