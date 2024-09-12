@@ -1,6 +1,6 @@
 {
     "workspace.library": [
-        "/Users/mtillmanns/projects/qt/qtc-work/fsengine/builds/Qt-6.7.2-macos/Debug/Qt Creator.app/Contents/Resources/lua/meta"
+        "/Users/mtillmanns/projects/qt/qtc-work/master/src/plugins/lua/meta"
     ],
     "hint.paramName": "Literal",
     "hint.enable": true,
