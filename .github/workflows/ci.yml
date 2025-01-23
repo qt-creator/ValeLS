@@ -50,7 +50,7 @@ jobs:
           files: ValeLS.zip
 
       - name: Release on Extension Store
-        uses: qt-creator/deploy-lua-plugin@v3.1
+        uses: qt-creator/deploy-lua-plugin@v4.1
         with:
           api: ${{ secrets.EXTENSION_STORE_API_URL }}
           token: ${{ secrets.EXTENSION_STORE_API_TOKEN }}
