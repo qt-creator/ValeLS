@@ -1,0 +1,66 @@
+name: Build plugin
+run-name: ${{ github.actor }} is building the plugin
+on: 
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run against'
+        type: environment
+        required: true
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - uses: ConorMacBride/install-package@v1
+        with:
+          apt: qttools5-dev-tools
+
+      - name: Build translations
+        working-directory: ValeLS/ts
+        run: lrelease *.ts
+
+      - name: Create Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ValeLS
+          path: |
+            ./ValeLS*
+            !./ValeLS/**/*.ts
+
+  Release:
+    needs: Build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ValeLS
+      
+      - name: Archive Release
+        uses: thedoctor0/zip-release@0.7.5
+        with:
+          type: 'zip'
+          filename: 'ValeLS.zip'
+
+      # Make a release
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        id: create_release
+        with:
+          token: ${{ secrets.RELEASE_TOKEN }}
+          files: ValeLS.zip
+
+      - name: Release on Extension Store
+        uses: qt-creator/deploy-lua-plugin@v4.1
+        with:
+          api: ${{ secrets.EXTENSION_STORE_API_URL }}
+          token: ${{ secrets.EXTENSION_STORE_API_TOKEN }}
+          spec: ValeLS/ValeLS.lua
+          publish: true
+          download-url: ${{ fromJSON(steps.create_release.outputs.assets)[0].browser_download_url }} 
