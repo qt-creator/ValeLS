@@ -13,7 +13,7 @@ return {
     Experimental = true,
     DisabledByDefault = false,
     Dependencies = {
-        { Id = "lualanguageclient", Version = "15.0.0", Type = "scripting" }
+        { Id = "lualanguageclient", Version = "15.0.0" }
     },
     Tags = {"language server", "Vale", "ValeLS", "Qt"},
     Languages = {"en", "de"},
