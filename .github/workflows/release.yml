@@ -1,5 +1,5 @@
-name: Build plugin
-run-name: ${{ github.actor }} is building the plugin
+name: Release plugin
+run-name: ${{ github.actor }} is releasing the plugin
 on: 
   workflow_dispatch:
     inputs:
