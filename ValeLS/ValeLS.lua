@@ -12,8 +12,9 @@ return {
     Url = "https://www.qt.io",
     Experimental = true,
     DisabledByDefault = false,
+    Type = "Script",
     Dependencies = {
-        { Id = "lualanguageclient", Version = "15.0.0", Type = "scripting" }
+        { Id = "lualanguageclient", Version = "15.0.0" }
     },
     Tags = {"language server", "Vale", "ValeLS", "Qt"},
     Languages = {"en", "de"},
